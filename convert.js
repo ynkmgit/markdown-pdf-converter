@@ -465,6 +465,7 @@ async function main() {
   }
   
   const converter = new MarkdownToPDFConverter(config);
+  let conversionCompleted = false;
   
   try {
     await converter.initialize();
@@ -476,6 +477,7 @@ async function main() {
       if (isPkg) {
         const shouldProceed = await getUserConfirmation(config);
         if (!shouldProceed) {
+          await converter.close();
           console.log('\n💡 何かキーを押すとプログラムを終了します');
           process.stdin.setRawMode(true);
           process.stdin.resume();
@@ -502,6 +504,8 @@ async function main() {
         });
       }
       
+      conversionCompleted = true;
+      
     } else if (args[0] === '--single') {
       // 単体ファイル変換
       if (!args[1]) {
@@ -519,6 +523,8 @@ async function main() {
         converter.log(`変換に失敗しました: ${result.error}`, 'error');
         process.exit(1);
       }
+      
+      conversionCompleted = true;
       
     } else if (args[0] === '--help' || args[0] === '-h') {
       // ヘルプ表示
@@ -543,6 +549,7 @@ async function main() {
       
       converter.log(`カスタムフォルダ変換: ${inputDir} → ${outputDir}`, 'info');
       await converter.convertFolder(inputDir, outputDir);
+      conversionCompleted = true;
     }
     
   } catch (error) {
@@ -563,26 +570,30 @@ async function main() {
     }
   } finally {
     await converter.close();
-    console.log('\n🎉 処理が完了しました！');
     
-    // pkg環境（実行ファイル）での実行時は、ユーザーが結果を確認できるように待機
-    if (isPkg) {
-      console.log('\n📁 出力フォルダが自動的に開きます...');
-      console.log('💡 何かキーを押すとプログラムを終了します');
+    // 変換が正常に完了した場合のみ成功メッセージとフォルダオープン
+    if (conversionCompleted) {
+      console.log('\n🎉 処理が完了しました！');
       
-      // 出力フォルダを開く（Windows環境用）
-      if (process.platform === 'win32') {
-        const { spawn } = require('child_process');
-        const outputPath = path.resolve(basePath, config.outputDir || 'output');
-        spawn('explorer', [outputPath], { detached: true });
+      // pkg環境（実行ファイル）での実行時は、ユーザーが結果を確認できるように待機
+      if (isPkg) {
+        console.log('\n📁 出力フォルダが自動的に開きます...');
+        console.log('💡 何かキーを押すとプログラムを終了します');
+        
+        // 出力フォルダを開く（Windows環境用）
+        if (process.platform === 'win32') {
+          const { spawn } = require('child_process');
+          const outputPath = path.resolve(basePath, config.outputDir || 'output');
+          spawn('explorer', [outputPath], { detached: true });
+        }
+        
+        // キー入力待ち
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
+        process.stdin.on('data', () => {
+          process.exit(0);
+        });
       }
-      
-      // キー入力待ち
-      process.stdin.setRawMode(true);
-      process.stdin.resume();
-      process.stdin.on('data', () => {
-        process.exit(0);
-      });
     }
   }
 }
