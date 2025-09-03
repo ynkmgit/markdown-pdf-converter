@@ -1,6 +1,6 @@
 {
-  "inputDir": "C:/svn/requirements/docs",
-  "outputDir": "C:/svn/requirements/docs_pdf",
+  "inputDir": "./input",
+  "outputDir": "./output",
   "paperFormat": "A4",
   "margins": {
     "top": "20mm",

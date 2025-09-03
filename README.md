@@ -13,20 +13,20 @@ docker-run.bat
 ```
 この1コマンドで：
 - 必要に応じてDockerイメージをビルド
-- test_inputフォルダ内の全Markdownファイルを変換
-- test_outputフォルダにPDFを出力
+- inputフォルダ内の全Markdownファイルを変換
+- outputフォルダにPDFを出力
 
 ### 設定
 `config.json`でパス・フォーマット等を設定：
 ```json
 {
-  "inputDir": "./test_input",   # 入力フォルダ
-  "outputDir": "./test_output"  # 出力フォルダ
+  "inputDir": "./input",   # 入力フォルダ
+  "outputDir": "./output"  # 出力フォルダ
 }
 ```
 
-## テストファイル
-test_inputフォルダに以下のサンプルを用意：
+## サンプルファイル
+inputフォルダに以下のサンプルを用意：
 - `00_symbols_test.md` - 絵文字・記号表示テスト
 - `01_flowchart.md` - システムフロー図
 - `02_sequence.md` - API通信シーケンス

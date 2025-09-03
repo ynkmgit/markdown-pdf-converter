@@ -5,8 +5,8 @@ package-lock.json
 # Build output
 dist/
 
-# Test output
-test_output/
+# Output folder
+output/
 
 # Logs
 *.log

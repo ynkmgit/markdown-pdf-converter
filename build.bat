@@ -27,14 +27,14 @@ if %errorlevel% neq 0 (
 REM Copy files
 xcopy fonts dist\fonts\ /E /I /Y /Q >nul 2>&1
 xcopy templates dist\templates\ /E /I /Y /Q >nul 2>&1
-xcopy test_input dist\test_input\ /E /I /Y /Q >nul 2>&1
+xcopy input dist\input\ /E /I /Y /Q >nul 2>&1
 copy config.json dist\ /Y >nul 2>&1
-mkdir dist\test_output >nul 2>&1
+mkdir dist\output >nul 2>&1
 
 REM Create launcher
 echo @echo off > dist\convert.bat
-echo markdown-pdf-converter.exe test_input test_output >> dist\convert.bat
-echo if %%errorlevel%% equ 0 start test_output >> dist\convert.bat
+echo markdown-pdf-converter.exe input output >> dist\convert.bat
+echo if %%errorlevel%% equ 0 start output >> dist\convert.bat
 echo pause >> dist\convert.bat
 
 echo Build complete: dist/

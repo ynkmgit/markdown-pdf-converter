@@ -30,7 +30,7 @@
   "pkg": {
     "assets": [
       "templates/**/*",
-      "test_input/**/*",
+      "input/**/*",
       "fonts/**/*",
       "config.json"
     ],

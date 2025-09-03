@@ -9,7 +9,7 @@ Markdown to PDF converter with full Mermaid diagram support, optimized for Japan
 
 ### Docker (Only)
 ```bash
-docker-run.bat      # Run conversion (auto-builds, converts test_input → test_output)
+docker-run.bat      # Run conversion (auto-builds, converts input → output)
 ```
 
 No local Node.js setup required - everything runs in Docker container.
@@ -51,7 +51,7 @@ Key sections:
 
 ## Test Files Structure
 
-Comprehensive test coverage in `test_input/`:
+Comprehensive test coverage in `input/`:
 - `00_symbols_test.md` - Unicode emoji/symbol rendering validation
 - `01_flowchart.md` - Basic Mermaid flowcharts
 - `02_sequence.md` - API sequence diagrams 

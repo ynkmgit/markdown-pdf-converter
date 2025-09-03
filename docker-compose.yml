@@ -2,8 +2,8 @@ services:
   pdf-converter:
     build: .
     volumes:
-      - ./test_input:/app/test_input
-      - ./test_output:/app/test_output
+      - ./input:/app/input
+      - ./output:/app/output
       - ./config.json:/app/config.json
     shm_size: 1gb
     security_opt:

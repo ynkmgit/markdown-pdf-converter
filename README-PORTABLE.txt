@@ -2,7 +2,7 @@ Markdown PDF Converter (Portable)
 
 USAGE:
 1. Double-click convert.bat
-2. Check test_output folder for PDFs
+2. Check output folder for PDFs
 
 WHAT IT DOES:
 - Converts Markdown files to PDF
@@ -18,8 +18,8 @@ REQUIREMENTS:
 FILES:
 - markdown-pdf-converter.exe (main program)
 - convert.bat (launcher) 
-- test_input/ (sample files)
-- test_output/ (PDF output)
+- input/ (sample files)
+- output/ (PDF output)
 - config.json (settings)
 
 CUSTOM USAGE:
