@@ -28,13 +28,10 @@ REM Copy files
 xcopy templates dist\templates\ /E /I /Y /Q >nul 2>&1
 xcopy input dist\input\ /E /I /Y /Q >nul 2>&1
 copy config.json dist\ /Y >nul 2>&1
+copy PORTABLE-README.txt dist\README.txt /Y >nul 2>&1
 mkdir dist\output >nul 2>&1
 
-REM Create launcher
-echo @echo off > dist\convert.bat
-echo markdown-pdf-converter.exe input output >> dist\convert.bat
-echo if %%errorlevel%% equ 0 start output >> dist\convert.bat
-echo pause >> dist\convert.bat
+REM Portable version complete - no launcher needed
 
 echo Build complete: dist/
 pause

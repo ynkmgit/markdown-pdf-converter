@@ -499,10 +499,42 @@ async function main() {
   } catch (error) {
     console.error('💥 予期しないエラーが発生しました:', error);
     console.error(error.stack);
-    process.exit(1);
+    
+    // pkg環境（実行ファイル）ではエラー確認後に終了
+    if (isPkg) {
+      console.log('\n💡 何かキーを押すとプログラムを終了します');
+      process.stdin.setRawMode(true);
+      process.stdin.resume();
+      process.stdin.on('data', () => {
+        process.exit(1);
+      });
+      return; // finallyに進まない
+    } else {
+      process.exit(1);
+    }
   } finally {
     await converter.close();
     console.log('\n🎉 処理が完了しました！');
+    
+    // pkg環境（実行ファイル）での実行時は、ユーザーが結果を確認できるように待機
+    if (isPkg) {
+      console.log('\n📁 出力フォルダが自動的に開きます...');
+      console.log('💡 何かキーを押すとプログラムを終了します');
+      
+      // 出力フォルダを開く（Windows環境用）
+      if (process.platform === 'win32') {
+        const { spawn } = require('child_process');
+        const outputPath = path.resolve(basePath, config.outputDir || 'output');
+        spawn('explorer', [outputPath], { detached: true });
+      }
+      
+      // キー入力待ち
+      process.stdin.setRawMode(true);
+      process.stdin.resume();
+      process.stdin.on('data', () => {
+        process.exit(0);
+      });
+    }
   }
 }
 
@@ -510,7 +542,18 @@ async function main() {
 if (require.main === module) {
   main().catch(error => {
     console.error('💥 致命的なエラー:', error);
-    process.exit(1);
+    
+    // pkg環境（実行ファイル）では致命的エラーも確認後に終了
+    if (typeof process.pkg !== 'undefined') {
+      console.log('\n💡 何かキーを押すとプログラムを終了します');
+      process.stdin.setRawMode(true);
+      process.stdin.resume();
+      process.stdin.on('data', () => {
+        process.exit(1);
+      });
+    } else {
+      process.exit(1);
+    }
   });
 }
 
