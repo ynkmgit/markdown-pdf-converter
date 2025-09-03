@@ -48,6 +48,8 @@ Key sections:
 - `paperFormat` + `margins` - PDF layout
 - `mermaid.theme/fontSize` - Diagram appearance
 - `options.includePageNumbers` - PDF features
+- `options.recursive` - Subfolder search control
+- `options.skipConfirmation` - Auto-execution without y/n prompt
 
 ## Test Files Structure
 

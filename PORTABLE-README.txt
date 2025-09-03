@@ -51,6 +51,9 @@ config.json を編集して以下を変更可能：
 - サブフォルダ検索：
   "recursive": true   # サブフォルダ内も検索（デフォルト）
   "recursive": false  # 直下のファイルのみ
+- 確認ダイアログ：
+  "skipConfirmation": false  # y/n確認を表示（デフォルト）
+  "skipConfirmation": true   # 即座に変換開始
 
 === トラブルシューティング ===
 

@@ -34,7 +34,8 @@ build.bat
   "outputDir": "./output",
   "paperFormat": "A4",
   "options": {
-    "recursive": true
+    "recursive": true,
+    "skipConfirmation": false
   },
   "mermaid": {
     "theme": "default",
@@ -43,10 +44,13 @@ build.bat
 }
 ```
 
-### サブフォルダ対応
+### 設定オプション
 - `"recursive": true` - サブフォルダ内のMarkdownも変換（デフォルト）
 - `"recursive": false` - 直下のファイルのみ変換
-- フォルダ構造は自動的に保持されます
+- `"skipConfirmation": false` - y/n確認を表示（デフォルト）
+- `"skipConfirmation": true` - 即座に変換開始（自動化向け）
+
+フォルダ構造は自動的に保持されます
 
 ## サンプルファイル
 

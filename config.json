@@ -12,7 +12,8 @@
     "printBackground": true,
     "generateTOC": false,
     "includePageNumbers": true,
-    "recursive": true
+    "recursive": true,
+    "skipConfirmation": false
   },
   "mermaid": {
     "theme": "default",

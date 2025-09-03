@@ -473,8 +473,8 @@ async function main() {
     const args = process.argv.slice(2);
     
     if (args.length === 0) {
-      // pkg環境（exe実行）の場合は事前確認
-      if (isPkg) {
+      // pkg環境（exe実行）の場合は事前確認（skipConfirmationがfalseの場合のみ）
+      if (isPkg && !config.options?.skipConfirmation) {
         const shouldProceed = await getUserConfirmation(config);
         if (!shouldProceed) {
           await converter.close();
