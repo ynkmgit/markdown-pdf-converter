@@ -9,7 +9,7 @@ Markdown to PDF converter with full Mermaid diagram support, optimized for Japan
 
 ### Docker (Only)
 ```bash
-docker-run.bat      # Run conversion (auto-builds, converts input → output)
+docker-run.bat      # Run conversion with confirmation (auto-builds, converts input → output)
 ```
 
 No local Node.js setup required - everything runs in Docker container.

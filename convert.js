@@ -423,6 +423,35 @@ ${code}
   }
 }
 
+// ユーザー確認機能（pkg環境用）
+async function getUserConfirmation(config) {
+  console.log('\n📋 変換設定を確認してください:');
+  console.log(`📂 入力フォルダ: ${config.inputDir}`);
+  console.log(`📁 出力フォルダ: ${config.outputDir}`);
+  console.log(`🔍 検索モード: ${config.options?.recursive !== false ? 'サブフォルダ含む' : '直下のみ'}`);
+  console.log(`📄 用紙サイズ: ${config.paperFormat || 'A4'}`);
+  
+  console.log('\n🚀 変換を開始しますか？ (y/N): ');
+  
+  return new Promise((resolve) => {
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.on('data', (key) => {
+      const input = key.toString().toLowerCase();
+      process.stdin.setRawMode(false);
+      process.stdin.pause();
+      
+      if (input === 'y') {
+        console.log('✅ 変換を開始します...\n');
+        resolve(true);
+      } else {
+        console.log('❌ 変換をキャンセルしました。');
+        resolve(false);
+      }
+    });
+  });
+}
+
 // メイン処理
 async function main() {
   const configPath = path.join(basePath, 'config.json');
@@ -443,6 +472,20 @@ async function main() {
     const args = process.argv.slice(2);
     
     if (args.length === 0) {
+      // pkg環境（exe実行）の場合は事前確認
+      if (isPkg) {
+        const shouldProceed = await getUserConfirmation(config);
+        if (!shouldProceed) {
+          console.log('\n💡 何かキーを押すとプログラムを終了します');
+          process.stdin.setRawMode(true);
+          process.stdin.resume();
+          process.stdin.on('data', () => {
+            process.exit(0);
+          });
+          return;
+        }
+      }
+      
       // デフォルト: configで指定されたフォルダを変換
       converter.log('デフォルト設定で変換を開始します', 'info');
       converter.log(`入力フォルダ: ${config.inputDir}`, 'info');
