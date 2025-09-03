@@ -25,7 +25,6 @@ if %errorlevel% neq 0 (
 )
 
 REM Copy files
-xcopy fonts dist\fonts\ /E /I /Y /Q >nul 2>&1
 xcopy templates dist\templates\ /E /I /Y /Q >nul 2>&1
 xcopy input dist\input\ /E /I /Y /Q >nul 2>&1
 copy config.json dist\ /Y >nul 2>&1

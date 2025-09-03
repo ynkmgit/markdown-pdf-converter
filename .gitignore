@@ -8,6 +8,9 @@ dist/
 # Output folder
 output/
 
+# Claude Code settings
+.claude/
+
 # Logs
 *.log
 conversion.log

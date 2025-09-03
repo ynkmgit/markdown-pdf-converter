@@ -1,84 +1,71 @@
 # Markdown PDF Converter
 
-Markdownファイルを高品質PDFに変換。Mermaid図表対応。
+Markdownファイルを高品質PDFに変換。Mermaid図表対応、日本語完全サポート。
 
-## 前提条件
-- Docker Desktop インストール済み
+## 利用方法
 
-## 使い方
+### 🐳 Docker版（開発・自動化向け）
+**前提条件**: Docker Desktop
 
-### PDF変換
 ```bash
 docker-run.bat
 ```
-この1コマンドで：
-- 必要に応じてDockerイメージをビルド
-- inputフォルダ内の全Markdownファイルを変換
-- outputフォルダにPDFを出力
+- inputフォルダのMarkdownファイルを一括変換
+- outputフォルダにPDF出力
+- 環境構築不要
 
-### 設定
-`config.json`でパス・フォーマット等を設定：
+### 💻 ポータブル版（エンドユーザー向け）
+**前提条件**: Docker Desktop（ビルド時のみ）
+
+```bash
+build.bat
+```
+- `dist/markdown-pdf-converter.exe` 生成（83MB）
+- 単一実行ファイル、インストール不要
+- ダブルクリックで変換実行
+
+## 設定
+
+`config.json`でカスタマイズ可能：
 ```json
 {
-  "inputDir": "./input",   # 入力フォルダ
-  "outputDir": "./output"  # 出力フォルダ
+  "inputDir": "./input",
+  "outputDir": "./output",
+  "paperFormat": "A4",
+  "mermaid": {
+    "theme": "default",
+    "fontSize": 16
+  }
 }
 ```
 
 ## サンプルファイル
-inputフォルダに以下のサンプルを用意：
-- `00_symbols_test.md` - 絵文字・記号表示テスト
+
+`input/`フォルダに6個のテストファイル：
+- `00_symbols_test.md` - 絵文字・記号表示
 - `01_flowchart.md` - システムフロー図
-- `02_sequence.md` - API通信シーケンス
+- `02_sequence.md` - API通信図
 - `03_gantt.md` - プロジェクトスケジュール
-- `04_database.md` - データベース設計（ER図）
-- `05_comprehensive.md` - 全機能総合テスト
+- `04_database.md` - ER図・DB設計
+- `05_comprehensive.md` - 全機能統合テスト
 
-## ポータブル実行ファイル作成
+## 主な特徴
 
-### 前提条件
-- Docker Desktop インストール済み
+✅ **Mermaid図表完全対応** - フローチャート、シーケンス図、ER図等  
+✅ **日本語フォント** - Noto CJK、絵文字サポート  
+✅ **コードハイライト** - 全言語対応（highlight.js）  
+✅ **高品質PDF** - A4レイアウト、ページ番号  
+✅ **Docker環境** - 一貫した出力、環境依存なし  
 
-### ビルド方法（推奨）
-```bash
-# クリーンなDocker環境でビルド
-build-docker.bat
+## ファイル構成
 
-# または Docker Compose使用
-build-compose.bat
 ```
-
-### ビルド方法（ローカル）
-```bash
-# Node.js環境が必要
-build.bat
+├── input/              # 入力Markdownファイル
+├── output/             # 出力PDFファイル  
+├── docker-run.bat      # Docker実行
+├── build.bat           # ポータブル版ビルド
+├── convert.js          # メイン処理（15KB）
+├── config.json         # 設定ファイル
+├── Dockerfile          # Docker設定
+└── dist/               # ビルド出力
 ```
-
-### 出力
-- `dist/` フォルダに完全なポータブル版を生成
-- サイズ: 約170MB
-- Windows実行ファイル1つで完結
-
-## 主要ファイル
-
-### 実行・開発
-- `docker-run.bat` - Docker実行スクリプト
-- `convert.js` - メイン処理
-- `config.json` - 設定ファイル
-
-### Docker環境
-- `Dockerfile` - 実行用Dockerイメージ
-- `docker-compose.yml` - 実行設定
-- `Dockerfile.build` - ビルド用Dockerイメージ  
-- `docker-compose.build.yml` - ビルド設定
-
-### ビルド
-- `build-docker.bat` - Dockerビルド（推奨）
-- `build-compose.bat` - Docker Composeビルド
-- `build.bat` - ローカルビルド
-- `BUILD-GUIDE.md` - 詳細ビルドガイド
-
-### ポータブル版テンプレート
-- `README-PORTABLE.txt` - ユーザーガイド
-- `INSTALL-PORTABLE.txt` - セットアップガイド
-- `convert-portable-template.bat` - 高機能ランチャー

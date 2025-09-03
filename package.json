@@ -31,7 +31,6 @@
     "assets": [
       "templates/**/*",
       "input/**/*",
-      "fonts/**/*",
       "config.json"
     ],
     "targets": [
