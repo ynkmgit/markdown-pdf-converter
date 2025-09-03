@@ -10,7 +10,7 @@ Markdown PDF 変換ツール v1.0
 === ファイル構成 ===
 
 markdown-pdf-converter.exe - メインプログラム（83MB）
-input/                      - サンプルMarkdownファイル（6個）
+input/                      - サンプルMarkdownファイル（7個、サブフォルダ含む）
 output/                     - 生成されたPDFファイル
 config.json                 - 設定ファイル（入出力パス等）
 templates/                  - HTMLテンプレート
@@ -47,6 +47,9 @@ config.json を編集して以下を変更可能：
 - PDF用紙サイズ（A4/Letter等）
 - Mermaidテーマ・フォントサイズ
 - ページ余白
+- サブフォルダ検索：
+  "recursive": true   # サブフォルダ内も検索（デフォルト）
+  "recursive": false  # 直下のファイルのみ
 
 === トラブルシューティング ===
 

@@ -32,6 +32,9 @@ build.bat
   "inputDir": "./input",
   "outputDir": "./output",
   "paperFormat": "A4",
+  "options": {
+    "recursive": true
+  },
   "mermaid": {
     "theme": "default",
     "fontSize": 16
@@ -39,15 +42,21 @@ build.bat
 }
 ```
 
+### サブフォルダ対応
+- `"recursive": true` - サブフォルダ内のMarkdownも変換（デフォルト）
+- `"recursive": false` - 直下のファイルのみ変換
+- フォルダ構造は自動的に保持されます
+
 ## サンプルファイル
 
-`input/`フォルダに6個のテストファイル：
+`input/`フォルダにテストファイル：
 - `00_symbols_test.md` - 絵文字・記号表示
 - `01_flowchart.md` - システムフロー図
 - `02_sequence.md` - API通信図
 - `03_gantt.md` - プロジェクトスケジュール
 - `04_database.md` - ER図・DB設計
 - `05_comprehensive.md` - 全機能統合テスト
+- `subfolder/test.md` - サブフォルダ処理テスト
 
 ## 主な特徴
 

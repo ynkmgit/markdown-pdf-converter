@@ -11,7 +11,8 @@
   "options": {
     "printBackground": true,
     "generateTOC": false,
-    "includePageNumbers": true
+    "includePageNumbers": true,
+    "recursive": true
   },
   "mermaid": {
     "theme": "default",

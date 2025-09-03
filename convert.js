@@ -359,8 +359,14 @@ ${code}
     // 出力ディレクトリ作成
     await fs.mkdir(outputDir, { recursive: true });
     
+    // 再帰設定に応じてglobパターンを決定
+    const isRecursive = this.config.options?.recursive !== false; // デフォルトtrue
+    const globPattern = isRecursive ? '**/*.md' : '*.md';
+    
+    this.log(`検索モード: ${isRecursive ? '再帰的（サブフォルダを含む）' : '直下のみ'}`, 'info');
+    
     // Markdownファイル検索
-    const markdownFiles = await glob('**/*.md', { 
+    const markdownFiles = await glob(globPattern, { 
       cwd: inputDir,
       absolute: true,
       ignore: ['**/node_modules/**', '**/.git/**']
