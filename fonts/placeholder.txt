@@ -1,0 +1,8 @@
+# Font Placeholder
+
+This is a placeholder file. Replace with actual font files:
+- NotoSansCJK-Regular.ttc (10MB)
+- NotoColorEmoji.ttf (8MB)
+- LiberationSans-Regular.ttf (1MB)
+
+Without these fonts, the portable version will fallback to system fonts.

@@ -1,0 +1,9 @@
+node_modules
+test_output
+*.log
+.git
+.gitignore
+*.bat
+docker-*.bat
+README.md
+CLAUDE.md

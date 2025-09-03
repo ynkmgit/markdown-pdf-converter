@@ -1,0 +1,25 @@
+{
+  "inputDir": "C:/svn/requirements/docs",
+  "outputDir": "C:/svn/requirements/docs_pdf",
+  "paperFormat": "A4",
+  "margins": {
+    "top": "20mm",
+    "right": "20mm",
+    "bottom": "20mm",
+    "left": "20mm"
+  },
+  "options": {
+    "printBackground": true,
+    "generateTOC": false,
+    "includePageNumbers": true
+  },
+  "mermaid": {
+    "theme": "default",
+    "fontFamily": "arial",
+    "fontSize": 16
+  },
+  "logging": {
+    "verbose": true,
+    "logFile": "conversion.log"
+  }
+}

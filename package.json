@@ -1,0 +1,42 @@
+{
+  "name": "markdown-pdf-converter",
+  "version": "1.0.0",
+  "description": "Markdown to PDF converter with Mermaid support",
+  "main": "convert.js",
+  "bin": "convert.js",
+  "scripts": {
+    "setup": "npm install",
+    "convert": "node convert.js",
+    "test": "node convert.js --single test.md test.pdf",
+    "build": "pkg . --target win-x64 --output dist/markdown-pdf-converter.exe"
+  },
+  "dependencies": {
+    "glob": "^10.0.0",
+    "highlight.js": "^11.9.0",
+    "marked": "^9.0.0",
+    "puppeteer": "^23.0.0"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "keywords": [
+    "markdown",
+    "pdf",
+    "mermaid",
+    "converter"
+  ],
+  "author": "",
+  "license": "MIT",
+  "pkg": {
+    "assets": [
+      "templates/**/*",
+      "test_input/**/*",
+      "fonts/**/*",
+      "config.json"
+    ],
+    "targets": [
+      "win-x64"
+    ],
+    "outputPath": "dist"
+  }
+}
