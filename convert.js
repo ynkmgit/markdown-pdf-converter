@@ -466,6 +466,7 @@ async function main() {
   
   const converter = new MarkdownToPDFConverter(config);
   let conversionCompleted = false;
+  let actualOutputDir = null;
   
   try {
     await converter.initialize();
@@ -493,6 +494,7 @@ async function main() {
       converter.log(`入力フォルダ: ${config.inputDir}`, 'info');
       converter.log(`出力フォルダ: ${config.outputDir}`, 'info');
       
+      actualOutputDir = config.outputDir;
       const results = await converter.convertFolder(config.inputDir, config.outputDir);
       
       // エラーがあった場合は詳細表示
@@ -516,6 +518,7 @@ async function main() {
       const inputFile = args[1];
       const outputFile = args[2] || inputFile.replace(/\.md$/, '.pdf');
       
+      actualOutputDir = path.dirname(outputFile);
       converter.log(`単体ファイル変換: ${path.basename(inputFile)}`, 'info');
       const result = await converter.convertSingleFile(inputFile, outputFile);
       
@@ -547,6 +550,7 @@ async function main() {
       const inputDir = args[0];
       const outputDir = args[1] || config.outputDir;
       
+      actualOutputDir = outputDir;
       converter.log(`カスタムフォルダ変換: ${inputDir} → ${outputDir}`, 'info');
       await converter.convertFolder(inputDir, outputDir);
       conversionCompleted = true;
@@ -577,15 +581,17 @@ async function main() {
       
       // pkg環境（実行ファイル）での実行時は、ユーザーが結果を確認できるように待機
       if (isPkg) {
-        console.log('\n📁 出力フォルダが自動的に開きます...');
-        console.log('💡 何かキーを押すとプログラムを終了します');
-        
-        // 出力フォルダを開く（Windows環境用）
-        if (process.platform === 'win32') {
-          const { spawn } = require('child_process');
-          const outputPath = path.resolve(basePath, config.outputDir || 'output');
-          spawn('explorer', [outputPath], { detached: true });
+        // 出力フォルダを開く設定の場合のみフォルダオープン処理
+        if (config.options?.openOutputFolder !== false && actualOutputDir) {
+          console.log('\n📁 出力フォルダが自動的に開きます...');
+          // 出力フォルダを開く（Windows環境用）
+          if (process.platform === 'win32') {
+            const { spawn } = require('child_process');
+            const outputPath = path.resolve(basePath, actualOutputDir);
+            spawn('explorer', [outputPath], { detached: true });
+          }
         }
+        console.log('💡 何かキーを押すとプログラムを終了します');
         
         // キー入力待ち
         process.stdin.setRawMode(true);

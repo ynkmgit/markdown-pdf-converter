@@ -50,6 +50,7 @@ Key sections:
 - `options.includePageNumbers` - PDF features
 - `options.recursive` - Subfolder search control
 - `options.skipConfirmation` - Auto-execution without y/n prompt
+- `options.openOutputFolder` - Auto-open output folder after completion
 
 ## Test Files Structure
 

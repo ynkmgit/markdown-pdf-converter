@@ -35,7 +35,8 @@ build.bat
   "paperFormat": "A4",
   "options": {
     "recursive": true,
-    "skipConfirmation": false
+    "skipConfirmation": false,
+    "openOutputFolder": true
   },
   "mermaid": {
     "theme": "default",
@@ -49,6 +50,8 @@ build.bat
 - `"recursive": false` - 直下のファイルのみ変換
 - `"skipConfirmation": false` - y/n確認を表示（デフォルト）
 - `"skipConfirmation": true` - 即座に変換開始（自動化向け）
+- `"openOutputFolder": true` - 完了後に出力フォルダを開く（デフォルト）
+- `"openOutputFolder": false` - 出力フォルダを開かない
 
 フォルダ構造は自動的に保持されます
 

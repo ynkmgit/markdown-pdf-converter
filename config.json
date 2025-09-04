@@ -13,7 +13,8 @@
     "generateTOC": false,
     "includePageNumbers": true,
     "recursive": true,
-    "skipConfirmation": false
+    "skipConfirmation": false,
+    "openOutputFolder": true
   },
   "mermaid": {
     "theme": "default",
