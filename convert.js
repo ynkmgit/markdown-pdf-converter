@@ -36,10 +36,69 @@ class MarkdownToPDFConverter {
       ]
     };
 
-    // pkg環境では同梱されたChromiumを使用
+    // pkg環境でのChromium検索（3段階）
     if (isPkg) {
-      // pkgでバンドルされたChromiumのパスを使用
-      launchOptions.executablePath = puppeteer.executablePath();
+      try {
+        const exePath = path.dirname(process.execPath);
+        
+        // Step 1: 手動配置されたchrome-bundleを検索
+        const manualChromePaths = [
+          path.join(exePath, 'chrome-bundle', 'chrome.exe'),
+          path.join(exePath, 'chrome-bundle', 'chrome-win64', 'chrome.exe'),
+          path.join(exePath, 'chrome-bundle', 'win64-*', 'chrome-win64', 'chrome.exe')
+        ];
+        
+        let chromeFound = false;
+        for (const chromePath of manualChromePaths) {
+          if (chromePath.includes('*')) {
+            // ワイルドカード検索
+            const { glob } = require('glob');
+            const matches = glob.sync(chromePath);
+            if (matches.length > 0 && require('fs').existsSync(matches[0])) {
+              launchOptions.executablePath = matches[0];
+              console.log(`✅ 手動配置Chromiumを使用: ${matches[0]}`);
+              chromeFound = true;
+              break;
+            }
+          } else {
+            // 直接パス確認
+            if (require('fs').existsSync(chromePath)) {
+              launchOptions.executablePath = chromePath;
+              console.log(`✅ 手動配置Chromiumを使用: ${chromePath}`);
+              chromeFound = true;
+              break;
+            }
+          }
+        }
+        
+        // Step 2: システムのGoogle Chromeを検索
+        if (!chromeFound) {
+          console.log('⚠️  手動配置Chromiumが見つかりません。システムのChromeを探します...');
+          const systemChromePaths = [
+            'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+            'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+            process.env.LOCALAPPDATA + '\\Google\\Chrome\\Application\\chrome.exe'
+          ];
+          
+          for (const chromePath of systemChromePaths) {
+            if (require('fs').existsSync(chromePath)) {
+              launchOptions.executablePath = chromePath;
+              console.log(`⚠️  システムのChromeを使用: ${chromePath}`);
+              chromeFound = true;
+              break;
+            }
+          }
+        }
+        
+        // Step 3: Puppeteer自動検出（最後の手段）
+        if (!chromeFound) {
+          console.log('⚠️  システムのChromeも見つかりません。Puppeteer自動検出を試行します...');
+          // executablePathを設定しない = 自動検出
+        }
+        
+      } catch (error) {
+        console.log('⚠️  Chromiumパス設定でエラー。自動検出を試行します...', error.message);
+      }
     }
 
     this.browser = await puppeteer.launch(launchOptions);
