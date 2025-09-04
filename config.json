@@ -14,7 +14,8 @@
     "includePageNumbers": true,
     "recursive": true,
     "skipConfirmation": false,
-    "openOutputFolder": true
+    "openOutputFolder": true,
+    "pauseOnSuccess": true
   },
   "mermaid": {
     "theme": "default",

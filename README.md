@@ -52,6 +52,8 @@ build.bat
 - `"skipConfirmation": true` - 即座に変換開始（自動化向け）
 - `"openOutputFolder": true` - 完了後に出力フォルダを開く（デフォルト）
 - `"openOutputFolder": false` - 出力フォルダを開かない
+- `"pauseOnSuccess": true` - 成功時にキー入力待ち（デフォルト）
+- `"pauseOnSuccess": false` - 成功時は自動終了（エラー時のみ一時停止）
 
 フォルダ構造は自動的に保持されます
 

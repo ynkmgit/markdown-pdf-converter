@@ -430,6 +430,7 @@ async function getUserConfirmation(config) {
   console.log(`📁 出力フォルダ: ${config.outputDir}`);
   console.log(`🔍 検索モード: ${config.options?.recursive !== false ? 'サブフォルダ含む' : '直下のみ'}`);
   console.log(`📄 用紙サイズ: ${config.paperFormat || 'A4'}`);
+  console.log(`⏸️  完了時の動作: ${config.options?.pauseOnSuccess !== false ? 'キー入力待ち' : '自動終了'}`);
   
   console.log('\n🚀 変換を開始しますか？ (y/N): ');
   
@@ -591,14 +592,21 @@ async function main() {
             spawn('explorer', [outputPath], { detached: true });
           }
         }
-        console.log('💡 何かキーを押すとプログラムを終了します');
         
-        // キー入力待ち
-        process.stdin.setRawMode(true);
-        process.stdin.resume();
-        process.stdin.on('data', () => {
+        // pauseOnSuccessがfalseの場合は、成功時に一時停止せずに終了
+        if (config.options?.pauseOnSuccess !== false) {
+          console.log('💡 何かキーを押すとプログラムを終了します');
+          
+          // キー入力待ち
+          process.stdin.setRawMode(true);
+          process.stdin.resume();
+          process.stdin.on('data', () => {
+            process.exit(0);
+          });
+        } else {
+          // 成功時は自動的に終了
           process.exit(0);
-        });
+        }
       }
     }
   }
