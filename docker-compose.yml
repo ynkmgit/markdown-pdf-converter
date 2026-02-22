@@ -1,0 +1,10 @@
+services:
+  pdf-converter:
+    build: .
+    volumes:
+      - ./input:/app/input
+      - ./output:/app/output
+      - ./config.json:/app/config.json
+    shm_size: 1gb
+    security_opt:
+      - seccomp:unconfined

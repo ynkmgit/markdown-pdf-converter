@@ -1,0 +1,12 @@
+node_modules
+output
+dist
+*.log
+.git
+.gitignore
+.claude
+*.bat
+README.md
+CLAUDE.md
+Dockerfile
+docker-compose.yml

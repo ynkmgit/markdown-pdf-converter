@@ -1,0 +1,25 @@
+{
+  "inputDir": "./input",
+  "outputDir": "./output",
+  "paperFormat": "A4",
+  "margins": {
+    "top": "20mm",
+    "right": "20mm",
+    "bottom": "20mm",
+    "left": "20mm"
+  },
+  "options": {
+    "printBackground": true,
+    "includePageNumbers": true,
+    "recursive": true,
+    "skipConfirmation": true,
+    "openOutputFolder": false,
+    "pauseOnSuccess": false,
+    "landscape": false
+  },
+  "mermaid": {
+    "theme": "default",
+    "fontFamily": "arial",
+    "fontSize": 16
+  }
+}
